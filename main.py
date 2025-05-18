@@ -91,16 +91,43 @@ def guess_letter(game_state):
         game_state['player_life'] -= 1
         print("This letter is not in the word.")
 
+def ask_player_for_replay():
+    while True:
+        player_choice = input("Do you want to play again? (y/n): ")
+        if player_choice == "n":
+            print("Thank you for playing!")
+            return False
+        elif player_choice == "y":
+            return True
+        else:
+            print("Not a valid answer.")
+
+def game_main_loop(game_state):
+
+    #Do while loop to play at least one time
+    while True:
+        while game_state['player_life'] != 0 and game_state['word guessed'] == False:
+            guess_letter(game_state)
+            print_game_status(game_state)
+
+        if ask_player_for_replay() is False:
+            break
+
+        word_to_guess = select_random_word(words)
+        game_state = init_game_status(word_to_guess)
+        print_game_status(game_state)
+
+
 # Word file init
 
 # Game init
+
+
 words = load_words()
 word_to_guess = select_random_word(words)
 game_status = init_game_status(word_to_guess)
 print_game_status(game_status)
 
 # Game loop
-while game_status['player_life'] != 0 and game_status['word guessed'] == False:
-    guess_letter(game_status)
-    print_game_status(game_status)
+game_main_loop(game_status)
 

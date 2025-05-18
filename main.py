@@ -15,22 +15,21 @@ def load_words():
 
         #if an error occurred when trying to open the file...
         except IOError as e:
-            print ("I/O error({0}): {1}".format(e.errno, e.strerror))
-            sys.exit()
+            print ("{1}".format(e.errno, e.strerror))
+            print ("We will use the default file.")
 
     # We use the default file
-    else:
-        filename = "random_words.txt"
+    filename = "random_words.txt"
 
-        try:
-            with open(filename, 'r') as file:
-                text = file.read()
-                return text.split()
+    try:
+        with open(filename, 'r') as file:
+            text = file.read()
+            return text.split()
 
-        except IOError as e:
-            print("I/O error({0}): {1}".format(e.errno, e.strerror))
-            print("The default file as probably been deleted or moved to another directory.")
-            sys.exit()
+    except IOError as e:
+        print("I/O error({0}): {1}".format(e.errno, e.strerror))
+        print("The default file as probably been deleted or moved to another directory.")
+        sys.exit()
 
 def select_random_word(word_list):
     return random.choice(word_list)

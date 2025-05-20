@@ -1,6 +1,11 @@
 import random
 import sys
+import unicodedata
 
+def remove_accents(input_str):
+    nfkd_form = unicodedata.normalize('NFKD', input_str)
+    res = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
+    return res
 
 def load_words():
     # Choosing if player use a custom file or not
@@ -32,7 +37,7 @@ def load_words():
         sys.exit()
 
 def select_random_word(word_list):
-    return random.choice(word_list)
+    return str(remove_accents(random.choice(word_list)))
 
 
 def init_game_status(word):
@@ -72,7 +77,7 @@ def ask_letter():
         if len(letter_to_guess) > 1:
             print("Too many letters! Please enter just 1 letter.\n")
         else:
-            return letter_to_guess
+            return remove_accents(letter_to_guess)
 
 def guess_letter(game_state):
 

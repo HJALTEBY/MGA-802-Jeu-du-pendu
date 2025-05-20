@@ -3,7 +3,10 @@ import sys
 import unicodedata
 
 def remove_accents(input_str):
+    # Replace all special character by their compatible equivalent
     nfkd_form = unicodedata.normalize('NFKD', input_str)
+
+    # Create a new str '' and append each character from the normalized form
     res = ''.join([c for c in nfkd_form if not unicodedata.combining(c)])
     return res
 
@@ -122,11 +125,7 @@ def game_main_loop(game_state):
         game_state = init_game_status(word_to_guess)
         print_game_status(game_state)
 
-
-# Word file init
-
 # Game init
-
 
 words = load_words()
 word_to_guess = select_random_word(words)
